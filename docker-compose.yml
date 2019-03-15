@@ -1,0 +1,16 @@
+version: '2'
+services:
+    web:
+        build: .
+        ports:
+            - "5000:5000"
+        volumes:
+            - .:/code
+    db:
+        image: postgres:10-alpine
+        environment:
+        - POSTGRES_DB=flask
+        - POSTGRES_USER=admin
+        - POSTGRES_PASSWORD=password
+        ports:
+        - "5432:5432"
