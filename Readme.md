@@ -3,8 +3,7 @@
 ### Lauch Project
 
 ```sh
-docker-compose build
-docker-compose up -d
+make run
 ```
 * Visit: http://localhost:5000
 
