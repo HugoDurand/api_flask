@@ -6,11 +6,15 @@ services:
             - "5000:5000"
         volumes:
             - .:/code
+        env_file:
+            - .env
+        depends_on:
+            - db
+        links:
+            - "db:db"
     db:
         image: postgres:10-alpine
-        environment:
-        - POSTGRES_DB=flask
-        - POSTGRES_USER=admin
-        - POSTGRES_PASSWORD=password
+        env_file:
+            - .env
         ports:
-        - "5432:5432"
+            - "5432:5432"
