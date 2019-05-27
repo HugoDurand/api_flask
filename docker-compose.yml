@@ -10,8 +10,6 @@ services:
             - .env
         depends_on:
             - db
-        links:
-            - "db:db"
     db:
         image: postgres:10-alpine
         env_file:
