@@ -5,4 +5,5 @@ EXPOSE 5000
 COPY requirements.txt .
 RUN pip install -r requirements.txt
 COPY . .
-CMD python api.py
+RUN pip install python-dotenv
+CMD python manage.py run
