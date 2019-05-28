@@ -1,14 +1,7 @@
 language: python
 
-services:
-  - docker
-
-env:
-  - DOCKER_COMPOSE_VERSION=1.4.2
-
 before_install:
-  - make start
-  - docker-compose exec web pip install pep8
+  - pip install pep8
 
 script:
   - find . -name \*.py -exec pep8 --ignore=E402 {} +
