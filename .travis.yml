@@ -1,4 +1,6 @@
 langage: python
+sudo: required
+dist: xenial
 
 before_script:
   - pip install pep8
