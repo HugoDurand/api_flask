@@ -5,3 +5,4 @@ flask_bcrypt
 flask_migrate
 flask_script
 psycopg2
+flask_testing

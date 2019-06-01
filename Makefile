@@ -5,5 +5,8 @@ start:
 	docker-compose exec web python manage.py db migrate --message 'initial database migration'
 	docker-compose exec web python manage.py db upgrade
 
+test:
+	docker-compose exec web python manage.py test
+
 stop:
 	docker-compose down
