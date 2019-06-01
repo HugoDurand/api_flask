@@ -1,4 +1,4 @@
-.travis.yml
 app/main/__pycache__/
 app/main/model/__pycache__/
 migrations/
+.idea/

@@ -1,0 +1,15 @@
+language: python
+
+notifications:
+    email: false
+
+env: SKIP_INTERPRETER=true
+
+before_install:
+  - git clone https://github.com/TravisToolbox/pycodestyle-travis.git
+
+install:
+  - ./pycodestyle-travis/install.sh
+
+script:
+  - ./pycodestyle-travis/scan.sh
