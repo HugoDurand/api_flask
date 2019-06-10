@@ -15,18 +15,12 @@ before_install:
   - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
   - chmod +x docker-compose
   - sudo mv docker-compose /usr/local/bin
+  - git clone https://github.com/TravisToolbox/pycodestyle-travis.git
   - make start
 
+install:
+  - ./pycodestyle-travis/install.sh
+
 script:
+    - ./pycodestyle-travis/scan.sh
     - make test
-
-#before_install:
-#  - git clone https://github.com/TravisToolbox/pycodestyle-travis.git
-#  - pip install flask_testing
-
-#install:
-#  - ./pycodestyle-travis/install.sh
-
-#script:
-#  - ./pycodestyle-travis/scan.sh
-#  - python manage.py test
