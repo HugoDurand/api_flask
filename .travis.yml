@@ -1,15 +1,25 @@
 language: python
 
+services:
+  - docker
+
 notifications:
     email: false
 
-env: SKIP_INTERPRETER=true
+env:
+    - DOCKER_COMPOSE_VERSION=1.22.0
 
 before_install:
+  - sudo rm /usr/local/bin/docker-compose
+  - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+  - chmod +x docker-compose
+  - sudo mv docker-compose /usr/local/bin
   - git clone https://github.com/TravisToolbox/pycodestyle-travis.git
+  - make start
 
 install:
   - ./pycodestyle-travis/install.sh
 
 script:
-  - ./pycodestyle-travis/scan.sh
+    - ./pycodestyle-travis/scan.sh
+    - make test
