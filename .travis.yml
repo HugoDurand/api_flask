@@ -16,10 +16,9 @@ before_install:
   - chmod +x docker-compose
   - sudo mv docker-compose /usr/local/bin
   - make start
-  - docker-compose exec web pip install flask_testing
 
 script:
-    -docker-compose exec web python manage.py test
+    - make test
 
 #before_install:
 #  - git clone https://github.com/TravisToolbox/pycodestyle-travis.git
