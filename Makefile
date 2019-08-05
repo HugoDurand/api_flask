@@ -10,3 +10,5 @@ test:
 
 stop:
 	docker-compose down
+	sudo find ./ -type d -name '__pycache__' -prune -exec rm -rf {} +
+	sudo find ./ -type d -name 'migrations' -prune -exec rm -rf {} +
