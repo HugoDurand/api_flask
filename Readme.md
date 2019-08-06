@@ -1,9 +1,20 @@
 # Flask Api
 
-### Lauch Project
+#### Lauch Project
 
 ```sh
-make run
+make start
 ```
 * Visit: http://localhost:5000
 
+#### Stop Project
+
+```sh
+make stop
+```
+
+#### Lauch Tests
+
+```sh
+make test
+```
