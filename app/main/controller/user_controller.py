@@ -3,11 +3,12 @@ from flask_restplus import Resource
 
 from ..util.dto import UserDto
 from ..service.user_service import save_new_user, get_all_users, get_a_user
+from ..util.decorator import token_required
 
 api = UserDto.api
 _user = UserDto.user
 
-
+@token_required
 @api.route('/')
 class UserList(Resource):
     @api.doc('list_of_registered_users')
@@ -24,7 +25,7 @@ class UserList(Resource):
         data = request.json
         return save_new_user(data=data)
 
-
+@token_required
 @api.route('/<public_id>')
 @api.param('public_id', 'The User identifier')
 @api.response(404, 'User not found.')
