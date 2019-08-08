@@ -8,7 +8,8 @@ def register_user(self):
         '/user/',
         data=json.dumps(dict(
             email='example@gmail.com',
-            username='username',
+            fisrtName='firstName',
+            lastName='lastName',
             password='123456'
         )),
         content_type='application/json'
