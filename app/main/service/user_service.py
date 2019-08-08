@@ -30,7 +30,7 @@ def get_users():
     return User.query.all()
 
 
-def ge_user(id):
+def get_user(id):
     return User.query.filter_by(id=id).first()
 
 
