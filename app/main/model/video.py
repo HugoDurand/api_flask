@@ -1,6 +1,9 @@
 from .. import db
 import datetime
 
+#TODO: find a way to pass by db instead of importing relationship from orm
+from sqlalchemy.orm import relationship
+
 class Video(db.Model):
     """ Video Model """
     __tablename__ = 'video'
@@ -10,6 +13,7 @@ class Video(db.Model):
     link = db.Column(db.String(500), nullable=False)
     duration = db.Column(db.Time, nullable=False)
     post_date = db.Column(db.DateTime, nullable=False)
+    comments = relationship('comment', lazy="dynamic", cascade='all, delete-orphan', passive_deletes=True)
 
     def __init__(self):
         self.post_date = datetime.datetime.now()

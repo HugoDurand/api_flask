@@ -15,3 +15,7 @@ stop:
 	sudo find ./ -type d -name 'migrations' -prune -exec rm -rf {} +
 	find . -type f -name '*.pyc' -delete
 	find . -type f -name '*.log' -delete
+
+restart:
+	docker-compose down
+	docker-compose up -d
