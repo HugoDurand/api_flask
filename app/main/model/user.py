@@ -11,9 +11,10 @@ class User(db.Model):
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     email = db.Column(db.String(255), unique=True, nullable=False)
+    firstName = db.Column(db.String(255), nullable=False)
+    lastName = db.Column(db.String(255), nullable=False)
     registered_on = db.Column(db.DateTime, nullable=False)
     admin = db.Column(db.Boolean, nullable=False, default=False)
-    username = db.Column(db.String(50), unique=True)
     password_hash = db.Column(db.String(100))
 
     @property
@@ -29,7 +30,7 @@ class User(db.Model):
         return flask_bcrypt.check_password_hash(self.password_hash, password)
 
     def __repr__(self):
-        return "<User '{}'>".format(self.username)
+        return "<User '{}'>".format(self.email)
 
     def encode_auth_token(self, user_id):
         """

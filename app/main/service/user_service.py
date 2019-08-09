@@ -4,12 +4,13 @@ from app.main import db
 from app.main.model.user import User
 
 
-def save_new_user(data):
+def new_user(data):
     user = User.query.filter_by(email=data['email']).first()
     if not user:
         new_user = User(
             email=data['email'],
-            username=data['username'],
+            firstName=data['firstName'],
+            lastName=data['lastName'],
             password=data['password'],
             registered_on=datetime.datetime.utcnow()
         )
@@ -25,17 +26,16 @@ def save_new_user(data):
         return response_object, 409
 
 
-def get_all_users():
+def get_users():
     return User.query.all()
 
 
-def get_a_user(id):
+def get_user(id):
     return User.query.filter_by(id=id).first()
 
 
 def generate_token(user):
     try:
-        # generate the auth token
         auth_token = user.encode_auth_token(user.id)
         response_object = {
             'status': 'success',

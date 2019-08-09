@@ -10,7 +10,7 @@ _video = VideoDto.video
 
 
 @api.route('/')
-class getPostVideo(Resource):
+class getOrPostVideo(Resource):
 
     @api.doc('list all videos')
     @api.marshal_list_with(_video, envelope='data')
@@ -28,6 +28,7 @@ class getPostVideo(Resource):
 @api.param('id', 'video identifier')
 class getVideoById(Resource):
 
+    @api.response(404, 'Video not found.')
     @api.doc('get a video')
     @api.marshal_list_with(_video)
     def get(self, id):

@@ -11,6 +11,8 @@ class TestUserModel(BaseTestCase):
     def test_encode_auth_token(self):
         user = User(
             email='test@test.com',
+            firstName='Martin',
+            lastName='Matin',
             password='test',
             registered_on=datetime.datetime.utcnow()
         )
@@ -22,6 +24,8 @@ class TestUserModel(BaseTestCase):
     def test_decode_auth_token(self):
         user = User(
             email='test@test.com',
+            firstName='Bernard',
+            lastName='Lermite',
             password='test',
             registered_on=datetime.datetime.utcnow()
         )
