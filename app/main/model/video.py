@@ -1,6 +1,9 @@
 from .. import db
 import datetime
 
+#TODO: find a way to pass by db instead of importing relationship from orm
+from sqlalchemy.orm import relationship
+
 class Video(db.Model):
     """ Video Model """
     __tablename__ = 'video'

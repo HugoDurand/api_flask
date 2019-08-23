@@ -5,11 +5,11 @@ def new_video(data):
 
     video = Video.query.filter_by(
         title=data['title'], 
-        duration = duration['duration']).first()
+        duration = data['duration']).first()
 
     if not video:
         new_video = Video (
-            title = date['title'],
+            title = data['title'],
             link = data['link'],
             duration = date['duration']
         )
