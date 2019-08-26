@@ -3,7 +3,10 @@ flask-restplus
 flask_sqlalchemy
 flask_bcrypt
 flask_migrate
+flask_graphql
 flask_script
 psycopg2
 flask_testing
 PyJWT
+graphene
+graphene_sqlalchemy

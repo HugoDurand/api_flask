@@ -1,3 +1,5 @@
+import datetime
+
 from app.main import db
 from app.main.model.video import Video
 
@@ -11,9 +13,10 @@ def new_video(data):
         new_video = Video (
             title = data['title'],
             link = data['link'],
-            duration = date['duration']
+            duration = data['duration'],
+            post_date=datetime.datetime.utcnow()
         )
-        db.session.add(data)
+        db.session.add(new_video)
         db.session.commit()
 
         response_object = {
