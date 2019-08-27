@@ -1,3 +1,5 @@
+import datetime
+
 from app.main import db
 from app.main.model.comment import Comment
 
@@ -10,9 +12,10 @@ def new_comment(data):
     if not comment:
         new_comment = Comment (
             text = data['text'],
-            video_id = data['video_id']
+            video_id = data['video_id'],
+            post_date = datetime.datetime.utcnow()
         )
-        db.session.add(data)
+        db.session.add(new_comment)
         db.session.commit()
 
         response_object = {

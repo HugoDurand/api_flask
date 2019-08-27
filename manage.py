@@ -9,16 +9,26 @@ from app import blueprint
 from app.main.model import user
 from app.main.model import blacklist
 from app.main.model import video
+from app.main.model import comment
+
+from app.main.util.schema import schema
+from flask_graphql import GraphQLView
+
 
 app = create_app(os.getenv('BOILERPLATE_ENV') or 'dev')
 app.register_blueprint(blueprint)
-
 app.app_context().push()
+app.add_url_rule(
+    '/graphql',
+    view_func=GraphQLView.as_view(
+        'graphql',
+        schema=schema,
+        graphiql=True
+    )
+)
 
 manager = Manager(app)
-
 migrate = Migrate(app, db)
-
 manager.add_command('db', MigrateCommand)
 
 
