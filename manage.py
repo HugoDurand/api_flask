@@ -11,7 +11,7 @@ from app.main.model import blacklist
 from app.main.model import video
 from app.main.model import comment
 
-from app.main.util.schema import schema
+from app.main.graphql.query import schema
 from flask_graphql import GraphQLView
 
 
