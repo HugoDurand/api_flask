@@ -1,9 +1,5 @@
 from flask_restplus import Namespace, fields
-from datetime import time
 
-class TimeFormat(fields.Raw):
-    def format(self, value):
-        return time.strftime(value, "%H:%M:%S")
 
 class UserDto:
     api = Namespace('user', description='user operations')
@@ -14,12 +10,14 @@ class UserDto:
         'password': fields.String(required=True, description='user password')
     })
 
+
 class AuthDto:
     api = Namespace('auth', description='authentication operations')
     user_auth = api.model('auth', {
         'email': fields.String(required=True, description='The email address'),
         'password': fields.String(required=True, description='The user password '),
     })
+
 
 class VideoDto:
     api = Namespace('video', description='video operations')
@@ -31,10 +29,10 @@ class VideoDto:
     video = api.model('video',{
         'title': fields.String(required=True, description='video title'),
         'link': fields.String(required=True, description='video link'),
-        'duration': fields.String(required=True, description='video Time in hh:mm:ss'),
+        'duration': fields.Float(required=True, description='video Time'),
         'comments': fields.List(fields.Nested(comment_fields)),
-        #'duration': TimeFormat(required=True, description='video Time in hh:mm:ss'),
     })
+
 
 class CommentDto:
     api = Namespace('comment', description='comment operations')
