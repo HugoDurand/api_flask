@@ -21,16 +21,18 @@ class AuthDto:
 
 class VideoDto:
     api = Namespace('video', description='video operations')
-
-    comment_fields = api.model('comment', {
-        'text': fields.String(required=True, description='comment text')
-    })
-
     video = api.model('video',{
         'title': fields.String(required=True, description='video title'),
         'link': fields.String(required=True, description='video link'),
         'duration': fields.Float(required=True, description='video Time'),
-        'comments': fields.List(fields.Nested(comment_fields)),
+        'category_id': fields.Integer(required=True, description='The Category ID')
+    })
+
+
+class CategoryDto:
+    api = Namespace('category', description='category operations')
+    category = api.model('category',{
+        'name': fields.String(required=True, description='category name'),
     })
 
 
