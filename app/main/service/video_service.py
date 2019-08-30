@@ -11,7 +11,7 @@ def new_video(data):
         duration=data['duration']).first()
 
     if not video:
-        new_video = Video (
+        new_video = Video(
             title=data['title'],
             link=data['link'],
             duration=data['duration'],
