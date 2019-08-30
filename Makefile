@@ -17,5 +17,8 @@ stop:
 	find . -type f -name '*.log' -delete
 
 restart:
-	docker-compose down
-	docker-compose up -d
+	make stop
+	make start
+
+log:
+	docker-compose up
