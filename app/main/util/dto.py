@@ -31,7 +31,7 @@ class VideoDto:
 
 class CategoryDto:
     api = Namespace('category', description='category operations')
-    video = api.model('category',{
+    category = api.model('category',{
         'name': fields.String(required=True, description='category name'),
     })
 

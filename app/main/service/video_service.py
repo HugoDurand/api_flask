@@ -3,18 +3,20 @@ import datetime
 from app.main import db
 from app.main.model.video import Video
 
+
 def new_video(data):
 
     video = Video.query.filter_by(
         title=data['title'], 
-        duration = data['duration']).first()
+        duration=data['duration']).first()
 
     if not video:
         new_video = Video (
-            title = data['title'],
-            link = data['link'],
-            duration = data['duration'],
-            post_date=datetime.datetime.utcnow()
+            title=data['title'],
+            link=data['link'],
+            duration=data['duration'],
+            post_date=datetime.datetime.utcnow(),
+            category_id=data['category_id']
         )
         db.session.add(new_video)
         db.session.commit()
@@ -35,6 +37,7 @@ def new_video(data):
 
 def get_videos():
     return Video.query.all()
+
 
 def get_video(id):
     return Video.query.filter_by(id=id).first()
