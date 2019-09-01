@@ -1,0 +1,11 @@
+{
+  "model": "Category",
+  "data":[
+      {
+          "name": "Animals"
+      },
+      {
+          "name": "Motorcycles"
+      }
+  ]
+}
