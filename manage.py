@@ -4,12 +4,10 @@ import unittest
 from flask_migrate import Migrate, MigrateCommand
 from flask_script import Manager
 
+from app.main.util.fixture import get_json
+
 from app.main import create_app, db
 from app import blueprint
-from app.main.model import user
-from app.main.model import blacklist
-from app.main.model import video
-from app.main.model import comment
 
 from app.main.graphql.query import schema
 from flask_graphql import GraphQLView
@@ -36,6 +34,9 @@ manager.add_command('db', MigrateCommand)
 def run():
     app.run(host="0.0.0.0")
 
+@manager.command
+def seed():
+    get_json()
 
 @manager.command
 def test():
