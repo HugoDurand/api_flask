@@ -5,6 +5,7 @@ flask_bcrypt
 flask_migrate
 flask_graphql
 flask_script
+flask-cors
 psycopg2
 flask_testing
 PyJWT
