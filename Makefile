@@ -4,8 +4,10 @@ start:
 	docker-compose exec web python manage.py db init
 	docker-compose exec web python manage.py db migrate --message 'initial database migration'
 	docker-compose exec web python manage.py db upgrade
-	docker-compose exec web python manage.py seed
 	@echo ========== visit: 'http://localhost:5000' ==========
+
+seed:
+	docker-compose exec web python manage.py seed
 
 test:
 	docker-compose exec web python manage.py test

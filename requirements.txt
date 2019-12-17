@@ -11,3 +11,4 @@ flask_testing
 PyJWT
 graphene
 graphene_sqlalchemy
+elasticsearch

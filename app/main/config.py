@@ -16,7 +16,6 @@ class DevelopmentConfig(Config):
     DEBUG = True
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
-
 class TestingConfig(Config):
     DEBUG = True
     TESTING = True

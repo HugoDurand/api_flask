@@ -1,8 +1,10 @@
 from .. import db
+from ..service.elastic_service import SearchableMixin
 
-class Video(db.Model):
+class Video(SearchableMixin, db.Model):
     """ Video Model """
     __tablename__ = 'video'
+    __searchable__ = ['title']
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     title = db.Column(db.String(255), nullable=False)
