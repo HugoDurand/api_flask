@@ -1,9 +1,9 @@
-import graphene
-from ..model.video import Video
+from graphene_sqlalchemy import SQLAlchemyObjectType
+
+from ..model.category import Category
 from ..model.comment import Comment
 from ..model.user import User
-from ..model.category import Category
-from graphene_sqlalchemy import SQLAlchemyObjectType
+from ..model.video import Video
 
 
 class VideoObject(SQLAlchemyObjectType):

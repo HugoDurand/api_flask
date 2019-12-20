@@ -2,6 +2,7 @@ import datetime
 
 from app.main import db
 from app.main.model.video import Video
+from app.main.model.category import Category
 
 
 def new_video(data):
@@ -11,12 +12,33 @@ def new_video(data):
         duration=data['duration']).first()
 
     if not video:
+        category = []
+        for category_id in data['categories']:
+            if category_id == 0:
+                response_object = {
+                    'status': 'fail',
+                    'message': 'The Video doesn\'t have any category',
+                }
+                return response_object, 409
+
+            search_category = Category.query.filter_by(id=category_id).first()
+
+            if not search_category:
+                response_object = {
+                    'status': 'fail',
+                    'message': 'The Video category doesn\'t exist',
+                }
+                return response_object, 409
+
+            category.append(search_category)
+
+
         new_video = Video(
             title=data['title'],
             link=data['link'],
             duration=data['duration'],
             post_date=datetime.datetime.utcnow(),
-            category_id=data['category_id']
+            categories=category
         )
         db.session.add(new_video)
         db.session.commit()

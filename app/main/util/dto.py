@@ -25,7 +25,7 @@ class VideoDto:
         'title': fields.String(required=True, description='video title'),
         'link': fields.String(required=True, description='video link'),
         'duration': fields.Float(required=True, description='video Time'),
-        'category_id': fields.Integer(required=True, description='The Category ID')
+        'categories': fields.List(fields.Integer(required=True), required=True, description='Video categories list')
     })
 
 

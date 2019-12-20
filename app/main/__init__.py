@@ -6,7 +6,7 @@ from flask_sqlalchemy import SQLAlchemy
 
 from .config import config_by_name
 
-db = SQLAlchemy()
+db = SQLAlchemy(session_options={"expire_on_commit": False})
 flask_bcrypt = Bcrypt()
 es = Elasticsearch('http://elasticsearch:9200')
 
