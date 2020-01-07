@@ -1,9 +1,8 @@
-from flask import request, jsonify
-from ..model.video import Video
+from flask import request
 from flask_restplus import Namespace, Resource
-from ..util.dto import VideoDto
 
-from ..service.elastic_service import query_index
+from ..model.video import Video
+from ..util.dto import VideoDto
 
 api = Namespace('elastic', description='elastic operations')
 _video = VideoDto.video

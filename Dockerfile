@@ -6,4 +6,4 @@ COPY requirements.txt .
 RUN pip install -r requirements.txt
 COPY . .
 RUN pip install python-dotenv
-CMD python manage.py run
+CMD python -u manage.py run

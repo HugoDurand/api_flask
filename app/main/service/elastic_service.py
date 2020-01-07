@@ -1,13 +1,10 @@
 from app.main import db, es
-from flask import jsonify
 
 
 def add_to_index(index, model):
     if not es:
         return
-    fields = {}
-    for field in model.__searchable__:
-        fields[field] = getattr(model, field)
+    fields = model.to_dict()
     es.index(index=index, id=model.id, body=fields)
 
 
@@ -27,7 +24,7 @@ def query_index(index, searched_value):
                 "multi_match": {
                     "query": searched_value,
                     "type": "phrase_prefix",
-                    "fields": ["title"]
+                    "fields": ["title", "categories.name"]
                 }
             }
         })

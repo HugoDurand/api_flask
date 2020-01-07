@@ -15,12 +15,17 @@ class CreateVideo(graphene.Mutation):
         title = graphene.String(required=True)
         link = graphene.String(required=True) 
         duration = graphene.Int(required=True)
-        category_id = graphene.Int(required=True)
+        categories = graphene.List(graphene.Int)
 
     video = graphene.Field(lambda: VideoObject)
 
-    def mutate(self, info, title, link, duration, category_id):
-        video = Video(title=title, link=link, duration=duration, post_date=datetime.datetime.utcnow(), category_id=category_id)
+    def mutate(self, info, title, link, duration, categories):
+        category = []
+        for category_id in categories:
+            search_category = Category.query.filter_by(id=category_id).first()
+            category.append(search_category)
+
+        video = Video(title=title, link=link, duration=duration, post_date=datetime.datetime.utcnow(), categories=category)
         db.session.add(video)
         db.session.commit()
         return CreateVideo(video=video)

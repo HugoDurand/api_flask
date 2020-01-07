@@ -10,10 +10,10 @@ def new_comment(data):
         video_id = data['video_id']).first()
 
     if not comment:
-        new_comment = Comment (
-            text = data['text'],
-            video_id = data['video_id'],
-            post_date = datetime.datetime.utcnow()
+        new_comment = Comment(
+            text=data['text'],
+            video_id=data['video_id'],
+            post_date=datetime.datetime.utcnow()
         )
         db.session.add(new_comment)
         db.session.commit()
