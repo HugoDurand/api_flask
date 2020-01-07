@@ -1,9 +1,18 @@
 import json, os
-import datetime
-from app.main import db
-from app.main.model.category import Category
-from app.main.model.comment import Comment
-from app.main.model.video import Video
+
+from ..service.category_service import new_category
+from ..service.comment_service import new_comment
+from ..service.video_service import new_video
+
+from ..model.category import Category
+from ..model.comment import Comment
+from ..model.video import Video
+
+model_create_functions = {
+	'Category': new_category,
+	'Comment': new_comment,
+	'Video': new_video
+}
 
 
 def get_json():
@@ -16,11 +25,7 @@ def get_json():
 
 
 def sort_data(data):
-	# TODO: Avois nested loops
 	for index, d in enumerate(data['data']):
 		model = eval(data['model'])()
-		for key, value in data['data'][index].items():
-			setattr(model, key, value)
-			print(getattr(model, key))
-		db.session.add(model)
-		db.session.commit()
+		function = globals()["new_"+str(type(model).__name__.lower())]
+		function(d)
