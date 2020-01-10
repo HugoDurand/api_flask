@@ -1,33 +1,26 @@
 import graphene
-import datetime
 
-from ..model.video import Video
-from ..model.comment import Comment
-from ..model.category import Category
-from ..model.user import User
+from .schema import VideoObject, CommentObject, CategoryObject, UserObject
+from ..service.category_service import new_category
+from ..service.comment_service import new_comment
+from ..service.user_service import new_user
+from ..service.video_service import new_video
 
-from .schema import VideoObject, CommentObject, CategoryObject
+from ..util.decorator import token_required, admin_token_required
 
-from app.main import db
 
 class CreateVideo(graphene.Mutation):
     class Arguments:
         title = graphene.String(required=True)
-        link = graphene.String(required=True) 
+        link = graphene.String(required=True)
         duration = graphene.Int(required=True)
         categories = graphene.List(graphene.Int)
 
     video = graphene.Field(lambda: VideoObject)
 
+    @admin_token_required
     def mutate(self, info, title, link, duration, categories):
-        category = []
-        for category_id in categories:
-            search_category = Category.query.filter_by(id=category_id).first()
-            category.append(search_category)
-
-        video = Video(title=title, link=link, duration=duration, post_date=datetime.datetime.utcnow(), categories=category)
-        db.session.add(video)
-        db.session.commit()
+        video = new_video(title, link, duration, categories)
         return CreateVideo(video=video)
 
 
@@ -37,10 +30,9 @@ class CreateCategory(graphene.Mutation):
 
     category = graphene.Field(lambda: CategoryObject)
 
+    @admin_token_required
     def mutate(self, info, name):
-        category = Category(name=name)
-        db.session.add(category)
-        db.session.commit()
+        category = new_category(name)
         return CreateCategory(category=category)
 
 
@@ -51,14 +43,29 @@ class CreateComment(graphene.Mutation):
 
     comment = graphene.Field(lambda: CommentObject)
 
+    @token_required
     def mutate(self, info, text, video_id):
-        comment = Comment(text=text, video_id=video_id, post_date=datetime.datetime.utcnow())
-        db.session.add(comment)
-        db.session.commit()
+        comment = new_comment(text, video_id)
         return CreateComment(comment=comment)
+
+
+class CreateUser(graphene.Mutation):
+    class Arguments:
+        email = graphene.String(required=True)
+        firstName = graphene.String(required=True)
+        lastName = graphene.String(required=True)
+        password = graphene.String(required=True)
+
+    user = graphene.Field(lambda: UserObject)
+    token = graphene.String()
+
+    def mutate(self, info, email, firstName, lastName, password):
+        user, token = new_user(email, firstName, lastName, password)
+        return CreateUser(user=user, token=token)
 
 
 class Mutation(graphene.ObjectType):
     create_video = CreateVideo.Field()
     create_comment = CreateComment.Field()
     create_category = CreateCategory.Field()
+    create_user = CreateUser.Field()

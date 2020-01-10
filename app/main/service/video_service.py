@@ -5,56 +5,38 @@ from app.main.model.video import Video
 from app.main.model.category import Category
 
 
-def new_video(data):
+
+def new_video(title, link, duration, categories):
 
     video = Video.query.filter_by(
-        title=data['title'], 
-        duration=data['duration']).first()
+        title=title,
+        duration=duration).first()
 
     if not video:
         category = []
-        for category_id in data['categories']:
+        for category_id in categories:
             if category_id == 0:
-                response_object = {
-                    'status': 'fail',
-                    'message': 'The Video doesn\'t have any category',
-                }
-                return response_object, 409
-
+                raise Exception('The Video doesn\'t have any category')
             search_category = Category.query.filter_by(id=category_id).first()
 
             if not search_category:
-                response_object = {
-                    'status': 'fail',
-                    'message': 'The Video category doesn\'t exist',
-                }
-                return response_object, 409
-
+                raise Exception('The Video Category doen\'t exist')
             category.append(search_category)
 
 
         new_video = Video(
-            title=data['title'],
-            link=data['link'],
-            duration=data['duration'],
+            title=title,
+            link=link,
+            duration=duration,
             post_date=datetime.datetime.utcnow(),
             categories=category
         )
         db.session.add(new_video)
         db.session.commit()
 
-        response_object = {
-            'status': 'success',
-            'message': 'The Video as been uploaded',
-        }
-        return response_object, 201
-
+        return new_video
     else:
-        response_object = {
-            'status': 'fail',
-            'message': 'The Video already exists',
-        }
-        return response_object, 409
+        raise Exception('The Video already exists')
 
 
 def get_videos():

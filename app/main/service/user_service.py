@@ -4,14 +4,14 @@ from app.main import db
 from app.main.model.user import User
 
 
-def new_user(data):
-    user = User.query.filter_by(email=data['email']).first()
+def new_user(email, firstName, lastName, password):
+    user = User.query.filter_by(email=email).first()
     if not user:
         new_user = User(
-            email=data['email'],
-            firstName=data['firstName'],
-            lastName=data['lastName'],
-            password=data['password'],
+            email=email,
+            firstName=firstName,
+            lastName=lastName,
+            password=password,
             registered_on=datetime.datetime.utcnow()
         )
         db.session.add(new_user)
@@ -19,11 +19,7 @@ def new_user(data):
 
         return generate_token(new_user)
     else:
-        response_object = {
-            'status': 'fail',
-            'message': 'User already exists. Please Log in.',
-        }
-        return response_object, 409
+        raise Exception('User already exists. Please Log in.')
 
 
 def get_users():
@@ -37,15 +33,6 @@ def get_user(id):
 def generate_token(user):
     try:
         auth_token = user.encode_auth_token(user.id)
-        response_object = {
-            'status': 'success',
-            'message': 'Successfully registered.',
-            'Authorization': auth_token.decode()
-        }
-        return response_object, 201
+        return user, auth_token.decode()
     except Exception as e:
-        response_object = {
-            'status': 'fail',
-            'message': 'Some error occurred. Please try again.'
-        }
-        return response_object, 401
+        raise e
