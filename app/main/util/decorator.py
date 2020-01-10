@@ -12,7 +12,7 @@ def token_required(f):
         token = data.get('data')
 
         if not token:
-            return data, status
+            raise Exception('You have to Login')
 
         return f(*args, **kwargs)
 
@@ -31,11 +31,7 @@ def admin_token_required(f):
 
         admin = token.get('admin')
         if not admin:
-            response_object = {
-                'status': 'fail',
-                'message': 'admin token required'
-            }
-            return response_object, 401
+            raise Exception('You have to be admin')
 
         return f(*args, **kwargs)
 

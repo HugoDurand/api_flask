@@ -2,30 +2,21 @@ from app.main import db
 from app.main.model.category import Category
 
 
-def new_category(data):
+def new_category(name):
 
     category = Category.query.filter_by(
-        name=data['name']).first()
+        name=name).first()
 
     if not category:
         new_category = Category(
-            name=data['name']
+            name=name
         )
         db.session.add(new_category)
         db.session.commit()
 
-        response_object = {
-            'status': 'success',
-            'message': 'The Category as been created',
-        }
-        return response_object, 201
-
+        return new_category
     else:
-        response_object = {
-            'status': 'fail',
-            'message': 'The Category already exists',
-        }
-        return response_object, 409
+        raise Exception('The Category already exists')
 
 
 def get_categories():

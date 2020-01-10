@@ -22,7 +22,7 @@ class getOrPostUser(Resource):
     @api.expect(_user, validate=True)
     def post(self):
         data = request.json
-        return new_user(data=data)
+        return {}
 
 @api.route('/<id>')
 @api.param('id', 'user identifier')
