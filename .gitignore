@@ -4,5 +4,4 @@ __pycache__/
 migrations/
 .idea/
 .idea/workspace.xml
-.env
 flask_monitoringdashboard.db

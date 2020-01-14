@@ -4,13 +4,11 @@ from app.main import db
 from app.main.model.user import User
 
 
-def new_user(email, firstName, lastName, password):
+def new_user(email, password):
     user = User.query.filter_by(email=email).first()
     if not user:
         new_user = User(
             email=email,
-            firstName=firstName,
-            lastName=lastName,
             password=password,
             registered_on=datetime.datetime.utcnow()
         )
