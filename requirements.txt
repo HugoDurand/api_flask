@@ -13,3 +13,4 @@ graphene
 graphene_sqlalchemy
 elasticsearch
 flask_monitoringdashboard
+flask-admin
